@@ -1,27 +1,37 @@
 # Tech Stack
 
-## Core
+## Overview
 
-- **HTML5** — single `index.html` page
-- **CSS** — inline `<style>` block (no external stylesheets)
-- **Vanilla JavaScript** — plain ES5/ES6, no frameworks or libraries
-- **Canvas 2D API** — all rendering done via `canvas.getContext("2d")`
+- Plain vanilla JavaScript (ES5-style, wrapped in an IIFE with `"use strict"`). No frameworks.
+- HTML5 `<canvas>` 2D context for all rendering.
+- CSS is inline in a `<style>` block within `index.html`.
+- No build tooling, package manager, bundler, transpiler, or external dependencies.
+
+## Running
+
+There is nothing to build or compile. Open the game directly in a browser:
+
+```bash
+open index.html
+```
+
+Or serve it over a local HTTP server (useful to avoid any browser file:// quirks):
+
+```bash
+python3 -m http.server 8000
+# then visit http://localhost:8000
+```
+
+## Testing
+
+There is no automated test setup. Verify changes by playing the game in the browser:
+check paddle movement (keys and mouse), ball launch/bounce, brick collisions, speed-up,
+lives/game-over, win state, and pause.
 
 ## Conventions
 
-- No build system, no package manager, no dependencies. Everything lives in `index.html`.
-- JavaScript runs inside an IIFE with `"use strict"` to avoid polluting the global scope.
-- Rendering is driven by a `requestAnimationFrame` loop (`update` → `updateParticles` → `render`).
-- Game logic is organized as plain functions and mutable module-scoped state objects (`paddle`, `ball`, `bricks`, etc.).
-- Constants (sizes, speeds, colors) are declared in UPPER_SNAKE_CASE near the top of the script.
-- Game states are tracked via a `STATE` enum object (`start`, `playing`, `over`, `win`).
-
-## Common Commands
-
-There is no build, compile, or test step.
-
-- **Run / play:** open `index.html` directly in a web browser, or serve the folder with any static server, e.g.:
-  ```bash
-  python3 -m http.server
-  ```
-  then open http://localhost:8000
+- Keep everything self-contained in `index.html` unless the project is explicitly restructured.
+- All game logic lives inside the single IIFE in the `<script>` block.
+- Game tuning values are defined as `const` constants at the top of the script (e.g. `PADDLE_W`, `BASE_SPEED`, `ROWS`, `COLS`). Adjust gameplay by editing these rather than hardcoding values inline.
+- Rendering uses the canvas 2D API directly; keep draw code inside `render()` and helpers.
+- The game loop runs via `requestAnimationFrame` with an `update()` / `render()` split.

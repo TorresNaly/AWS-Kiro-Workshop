@@ -1,18 +1,19 @@
 # Product
 
-A browser-based **Breakout** arcade game. The player moves a paddle to bounce a ball and destroy a grid of colored bricks without losing all their lives.
+Breakout is a classic arcade brick-breaking game that runs entirely in the browser. The player controls a paddle at the bottom of the screen to bounce a ball upward and destroy a grid of colored bricks.
 
-## Core features
+## Core gameplay
 
-- Classic brick-breaking gameplay with 5 rows x 10 columns of bricks
-- Paddle control via keyboard (arrow keys) or mouse
-- Ball launch, bounce physics, and angle-based paddle deflection
-- Lives system (3 lives, shown as hearts in the HUD)
-- Progressive difficulty: ball speeds up every 5 bricks destroyed
-- Particle burst effects on brick destruction
-- Game states: start screen, playing, paused, game over, and win
-- HUD showing remaining lives and bricks left
+- Move the paddle with the arrow keys or the mouse; press Space to launch the ball.
+- Clear all bricks to win; losing the ball three times (lives) ends the game.
+- The ball speeds up gradually as more bricks are destroyed, raising difficulty over time.
+- Bounce angle depends on where the ball strikes the paddle, giving the player directional control.
 
-## Goal
+## State and feedback
 
-A lightweight, self-contained game that runs in any modern browser with no installation or build step. Keep it simple, dependency-free, and instantly playable.
+- Game states: start screen, playing, game over, and win, each with an on-screen overlay.
+- Lives are shown as hearts (top-left) and remaining bricks as a counter (top-right).
+- Destroyed bricks emit a short particle burst for visual feedback.
+- The game can be paused and resumed with the P key.
+
+This is a self-contained demo/workshop project with no backend, accounts, or persistence.
