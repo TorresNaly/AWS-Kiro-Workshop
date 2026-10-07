@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Sync README on index.html Save",
+      "trigger": "PostFileSave",
+      "matcher": "index\\.html$",
+      "action": {
+        "type": "agent",
+        "prompt": "index.html was just saved. Read the current index.html in the workspace root and update README.md so it accurately documents the current game. Create README.md in the workspace root if it does not exist.\n\nThe README must cover, based strictly on what index.html actually contains:\n- Game name (the title shown to the player)\n- How to play (objective and basic rules)\n- Controls (keys, mouse, or touch inputs)\n- Features list\n- Power-ups, only if the game actually has any (omit this section if there are none)\n\nRules:\n- Keep README.md under 60 lines total.\n- Document only what is present in index.html — do not invent mechanics, controls, or power-ups.\n- If a game detail is unclear or absent, leave it out rather than guessing.\n- Overwrite the relevant sections so the README always reflects the current state of the game."
+      }
+    }
+  ]
+}
