@@ -24,6 +24,9 @@ The existing game does **not** track a numeric score. It tracks `destroyed` (cou
 - **STATE**: The existing game state object with values START, PLAYING, OVER, and WIN.
 - **ENTER_INITIALS**: A new game state during which the Initials_Entry_Screen is active.
 - **Cursor_Position**: The index (0, 1, or 2) of the Initials character currently being edited on the Initials_Entry_Screen.
+- **CONFIRM_RESET**: A new game state during which the Reset_Confirmation_Screen is active and the player must confirm or cancel clearing the Leaderboard.
+- **Reset_Option**: A visible control, labeled to indicate resetting scores, displayed on the START screen that the player activates to begin clearing the Leaderboard.
+- **Reset_Confirmation_Screen**: The canvas-rendered prompt displayed during the CONFIRM_RESET state that asks the player to confirm or cancel clearing the Leaderboard.
 
 ## Requirements
 
@@ -136,3 +139,19 @@ The existing game does **not** track a numeric score. It tracks `destroyed` (cou
 3. WHEN the Game is in the START, PLAYING, OVER, or WIN state, THE Game SHALL retain all keyboard controls for paddle movement, ball launch, pause, and restart that were implemented prior to this feature, producing identical observable responses for each such key press.
 4. WHILE the Game is in the ENTER_INITIALS state, THE Game SHALL route ArrowLeft, ArrowRight, ArrowUp, ArrowDown, alphabetic letter (A through Z, case-insensitive), Backspace, and Enter key presses to the Initials_Entry_Screen and SHALL NOT apply those key presses to paddle movement or ball launch controls.
 5. IF a key press that is not one of ArrowLeft, ArrowRight, ArrowUp, ArrowDown, an alphabetic letter (A through Z), Backspace, or Enter is received WHILE the Game is in the ENTER_INITIALS state, THEN THE Game SHALL ignore the key press, leaving the Initials_Entry_Screen contents and game state unchanged.
+
+### Requirement 9: Reset the leaderboard with confirmation
+
+**User Story:** As a player, I want to reset the leaderboard from the start screen with a confirmation step, so that I can clear all recorded scores without deleting them by accident.
+
+#### Acceptance Criteria
+
+1. WHILE the Game is in the START state, THE Game SHALL display the Reset_Option on the canvas alongside the Leaderboard.
+2. WHILE the Game is in the START state AND the Leaderboard contains zero Score_Entry records, THE Game SHALL display the Reset_Option.
+3. WHEN the player activates the Reset_Option WHILE the Game is in the START state, THE Game SHALL transition to the CONFIRM_RESET state and SHALL leave the Leaderboard and the data persisted under the Storage_Key unchanged.
+4. WHILE the Game is in the CONFIRM_RESET state, THE Reset_Confirmation_Screen SHALL render on the canvas and display a prompt offering a confirm choice and a cancel choice.
+5. WHEN the player selects the confirm choice WHILE the Game is in the CONFIRM_RESET state, THE Game SHALL remove every Score_Entry from the Leaderboard so that the Leaderboard contains zero Score_Entry records and SHALL clear the New_Entry designation.
+6. WHEN the player selects the confirm choice WHILE the Game is in the CONFIRM_RESET state, THE Leaderboard_Store SHALL clear the data persisted under the Storage_Key so that a subsequent read under the Storage_Key yields a Leaderboard containing zero Score_Entry records.
+7. WHEN the confirm choice has been processed, THE Game SHALL transition to the START state and SHALL display the message indicating that no scores have been recorded.
+8. WHEN the player selects the cancel choice WHILE the Game is in the CONFIRM_RESET state, THE Game SHALL transition to the START state, SHALL leave the Leaderboard unchanged, and SHALL leave the data persisted under the Storage_Key unchanged.
+9. WHEN the player selects the confirm choice WHILE the Game is in the CONFIRM_RESET state AND the Leaderboard already contains zero Score_Entry records, THE Game SHALL retain a Leaderboard containing zero Score_Entry records and transition to the START state without producing an error indication.
