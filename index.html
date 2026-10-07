@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Breakout</title>
+<title>Brick Brawler</title>
 <style>
   html, body {
     margin: 0;
@@ -42,7 +42,7 @@
 </style>
 </head>
 <body>
-  <h1>BREAKOUT</h1>
+  <h1>BRICK BRAWLER</h1>
   <div id="wrap">
     <canvas id="game" width="800" height="600"></canvas>
   </div>
@@ -64,7 +64,7 @@
   const PADDLE_SPEED = 8;
 
   const BALL_R = 8;
-  const BASE_SPEED = 5;
+  const BASE_SPEED = 5.5;
   const SPEEDUP_EVERY = 5;      // bricks
   const SPEEDUP_FACTOR = 1.06;  // ball speed multiplier per threshold
 
@@ -393,7 +393,7 @@
 
     // Overlays
     if (state === STATE.START) {
-      overlay("BREAKOUT", "Press Space to start");
+      overlay("BRICK BRAWLER", "Press Space to start");
     } else if (state === STATE.PLAYING && ball.stuck) {
       ctx.fillStyle = "#e8ecff";
       ctx.font = "18px 'Segoe UI', Arial, sans-serif";
