@@ -4,3 +4,7 @@
 - No external libraries, frameworks, or build tools
 - No external assets - graphics are canvas-drawn, sounds are Web Audio API
 - Must run by opening the file directly in a browser
+
+## Code Style
+
+- All functions must be arrow functions (no `function` declarations or expressions)
